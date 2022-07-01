@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Angket;
 use App\Models\Siswa;
 use App\Models\HasilAngket;
+use App\Models\Prosentase;
+Use Alert;
 
 class AngketController extends Controller
 {
@@ -110,14 +112,28 @@ class AngketController extends Controller
         $data = new HasilAngket();
         $count = 0;
         $data->siswa_id = $request->siswa_id;
-        // dd($request->jawaban_4);
-    
         for($i=1; $i<=180; $i++){
+            $data->{'jawaban' . $i} = $request->{'jawaban_' . $i}; 
             if($request->{'jawaban_' . $i} === "Ya") $count++;
-            // dd($request->jawaban_.$i);
         }
+        $siswa = Siswa::find($request->siswa_id);
+        $data->kelas = $siswa->kelas;
+        $data->save();
 
-        dd($count);
+        $tingkat = $siswa->tingkat;
+        $jml = Siswa::where('tingkat', $tingkat)->count();
+        $prosentase = new Prosentase();
+        $prosentase->siswa_id = $data->siswa_id;
+        $prosentase->angket_id = $data->id;
+        $prosentase->prosentase = ($count/$jml);
+        $prosentase->save();
+        return redirect()->route('mtsn.angket')
+        ->with('success', 'Terima kasih sudah mengisi<br>' . $siswa->nama . ' - ' . $siswa->kelas . '<br>Prosentase kamu <b>' .$prosentase->prosentase . '%</b>');
+    //     ->with('html', '<i>HTML</i> <u>example</u>',"
+    //     You can use <b>bold text</b>,
+    //     <a href='//github.com'>links</a>
+    //     and other HTML tags
+    //   ",'success');      
 
     }
 

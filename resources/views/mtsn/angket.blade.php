@@ -14,6 +14,7 @@
     <form action="{{route('mtsn.angket.store')}}" method="POST" enctype="multipart/form-data">
       @csrf
     <div class="container">
+      @include('sweetalert::alert')
         <br>
         <div class="card text-center">
             <div class="card-header">
@@ -52,7 +53,7 @@
               <div class="form-group">
                 {{-- <label>Nama Siswa</label> --}}
               
-                <select class="form-control form-control-lg js-example-basic-single" name="siswa_id" aria-placeholder="Pilih Namamu!">
+                <select class="form-control form-control-lg js-example-basic-single" name="siswa_id" aria-placeholder="Pilih Namamu!" required>
                   <option selected>Pilih Namamu</option>
                   @if($pilihan == 'kelas7' || $pilihan == 'default')
                     @foreach ($kls7 as $a)
@@ -118,12 +119,12 @@
         <br>
         @endif
       @endforeach  
-     
+      <div class="text-left">
+        <button type="submit" class="btn btn-primary btn-lg" id="submit" data-loading-text="<span class='spinner-border spinner-border-sm'></span> Processing..." tabindex="5">Simpan</button>
+        <button type="reset" class="btn btn-danger " name="reset">Bersihkan</button>
     </div>
-    <div class="text-left">
-      <button type="submit" class="btn btn-primary btn-lg" id="submit" data-loading-text="<span class='spinner-border spinner-border-sm'></span> Processing..." tabindex="5">Simpan</button>
-      <button type="reset" class="btn btn-danger " name="reset">Bersihkan</button>
-  </div>
+    </div>
+    
   </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> --}}

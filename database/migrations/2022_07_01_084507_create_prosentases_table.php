@@ -15,6 +15,9 @@ class CreateProsentasesTable extends Migration
     {
         Schema::create('prosentases', function (Blueprint $table) {
             $table->id();
+            $table->integer('siswa_id');
+            $table->integer('angket_id');
+            $table->string('prosentase');
             $table->timestamps();
         });
     }
