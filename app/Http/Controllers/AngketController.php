@@ -16,7 +16,7 @@ class AngketController extends Controller
     //     $this->middleware('auth');
     // }
 
-    public function index()
+    public function index($pilihan)
     {
         $data = Angket::all();
         //print($data);
@@ -24,7 +24,6 @@ class AngketController extends Controller
         $kelas7 = Siswa::where('tingkat', 7)->get();
         $kelas8 = Siswa::where('tingkat', 8)->get();
         $kelas9 = Siswa::where('tingkat', 9)->get();
-        $pilihan = 'default';
 
         view()->share([
             'data' => $data,
@@ -36,75 +35,6 @@ class AngketController extends Controller
         ]);
 
         return view('mtsn.angket');
-    }
-
-    public function kelas7(){
-        $pilihan = 'kelas7';
-        $data = Angket::all();
-        //print($data);
-        $jml = $data->count();
-        $kelas7 = Siswa::where('tingkat', 7)->get();
-        $kelas8 = Siswa::where('tingkat', 8)->get();
-        $kelas9 = Siswa::where('tingkat', 9)->get();
-        // $pilihan = 'default';
-
-        view()->share([
-            'data' => $data,
-            'jml' => $jml,
-            'kls7' => $kelas7,
-            'kls8' => $kelas8,
-            'kls9' => $kelas9,
-            'pilihan' => $pilihan
-        ]);
-
-        return view('mtsn.angket');
-
-    }
-
-    public function kelas8(){
-        $pilihan = 'kelas8';
-        $data = Angket::all();
-        //print($data);
-        $jml = $data->count();
-        $kelas7 = Siswa::where('tingkat', 7)->get();
-        $kelas8 = Siswa::where('tingkat', 8)->get();
-        $kelas9 = Siswa::where('tingkat', 9)->get();
-        // $pilihan = 'default';
-
-        view()->share([
-            'data' => $data,
-            'jml' => $jml,
-            'kls7' => $kelas7,
-            'kls8' => $kelas8,
-            'kls9' => $kelas9,
-            'pilihan' => $pilihan
-        ]);
-
-        return view('mtsn.angket');
-
-    }
-
-    public function kelas9(){
-        $pilihan = 'kelas9';
-        $data = Angket::all();
-        //print($data);
-        $jml = $data->count();
-        $kelas7 = Siswa::where('tingkat', 7)->get();
-        $kelas8 = Siswa::where('tingkat', 8)->get();
-        $kelas9 = Siswa::where('tingkat', 9)->get();
-        // $pilihan = 'default';
-
-        view()->share([
-            'data' => $data,
-            'jml' => $jml,
-            'kls7' => $kelas7,
-            'kls8' => $kelas8,
-            'kls9' => $kelas9,
-            'pilihan' => $pilihan
-        ]);
-
-        return view('mtsn.angket');
-
     }
 
     public function store(Request $request)
@@ -125,17 +55,16 @@ class AngketController extends Controller
         $prosentase = new Prosentase();
         $prosentase->siswa_id = $data->siswa_id;
         $prosentase->angket_id = $data->id;
-        $prosentase->prosentase = ($count/$jml);
+        $prosentase->prosentase = round($count/$jml, 2) . '% dari '. $jml . ' siswa';
         $prosentase->save();
-        return redirect()->route('mtsn.angket')
-        ->with('success', 'Terima kasih sudah mengisi<br>' . $siswa->nama . ' - ' . $siswa->kelas . '<br>Prosentase kamu <b>' .$prosentase->prosentase . '%</b>');
-    //     ->with('html', '<i>HTML</i> <u>example</u>',"
-    //     You can use <b>bold text</b>,
-    //     <a href='//github.com'>links</a>
-    //     and other HTML tags
-    //   ",'success');      
-
+        return redirect()->route('mtsn.angket1')
+        ->with('success', 'Terima kasih sudah mengisi<br>' . $siswa->nama . ' ' . $siswa->kelas . '<br>Prosentase kamu: <b>' .$prosentase->prosentase . '</b>');
     }
 
-
+    public function detail($id)
+    {
+        $data = HasilAngket::findOrFail($id);
+        $angket = Angket::all();
+        return view('mtsn.detail-angket', ['data' => $data, 'angket' => $angket]);
+    }
 }

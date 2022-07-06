@@ -74,11 +74,17 @@
                     </ul>
                 </li> --}}
                 <li class="nav-item dropdown ">
-                    <a href="{{route('mtsn.siswa')}}" class="nav-link has-dropdown bg-white"><i class="fas fa-fire"></i><span id="hmm">Siswa</span></a>
+                    <a href="{{route('mtsn.siswa')}}" class="nav-link has-dropdown"><i class="fas fa-user-graduate"></i><span id="hmm">Siswa</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="bg-white" href="{{ route('mtsn.siswa') }}" id="hmm">Data</a></li>
-						<li class="active"><a class="bg-white" href="{{ route('mtsn.siswa.add') }}" id="hmm">Tambah Data</a></li>
+                        <li class="{{ Route::is('mtsn.siswa') ? 'active' : '' }}"><a class="bg-white" href="{{ route('mtsn.siswa') }}" id="hmm">Data</a></li>
+						<li class="{{ Route::is('mtsn.siswa.add') ? 'active' : '' }}"><a class="bg-white" href="{{ route('mtsn.siswa.add') }}" id="hmm">Tambah Data</a></li>
 
+                    </ul>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a href="{{route('mtsn.hasilangket')}}" class="nav-link has-dropdown"><i class="fas fa-poll"></i><span id="hmm">Hasil Angket</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Route::is('mtsn.hasilangket') ? 'active' : '' }}"><a class="bg-white" href="{{ route('mtsn.hasilangket') }}" id="hmm">Data</a></li>
                     </ul>
                 </li>
         </ul>

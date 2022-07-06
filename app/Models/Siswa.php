@@ -25,4 +25,14 @@ class Siswa extends Model
     public function siswaPelanggaran(){
         return $this->hasMany(Pelanggaran::class, 'id');
     }
+
+    public function prosentase()
+    {
+        return $this->hasMany(Prosentase::class, 'id');
+    }
+
+    public function hasilAngket()
+    {
+        return $this->hasMany(HasilAngket::class, 'id');
+    }
 }

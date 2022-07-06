@@ -20,30 +20,28 @@
             <div class="card-header">
               <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                @if($pilihan == 'kelas7' || $pilihan == 'default')
-                  <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket-kelas7')}}">Kelas 7</a>
-                @else
-                <a class="nav-link" href="{{route('mtsn.angket-kelas7')}}">Kelas 7</a>
-                @endif
+                  @if($pilihan == 'kelas7' || $pilihan == 'default')
+                  <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas7'])}}">Kelas 7</a>
+                  @else <a class="nav-link" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas7'])}}">Kelas 7</a>
+                  @endif
                 </li>
                 <li class="nav-item">
-                 @if($pilihan == 'kelas8')
-                 <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket-kelas8')}}">Kelas 8</a>
-                 @else
-                 <a class="nav-link" href="{{route('mtsn.angket-kelas8')}}">Kelas 8</a>
-                 @endif
+                  @if($pilihan == 'kelas8' || $pilihan == 'default')
+                  <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas8'])}}">Kelas 8</a>
+                  @else <a class="nav-link" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas8'])}}">Kelas 8</a>
+                  @endif
                 </li>
                 <li class="nav-item">
-                @if($pilihan == 'kelas9')
-                <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket-kelas9')}}">Kelas 9</a>
-                @else
-                  <a class="nav-link" href="{{route('mtsn.angket-kelas9')}}">Kelas 9</a>
-                @endif
+                  @if($pilihan == 'kelas9' || $pilihan == 'default')
+                  <a class="nav-link active" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas9'])}}">Kelas 9</a>
+                  @else <a class="nav-link" aria-current="true" href="{{route('mtsn.angket', ['pilihan' => 'kelas9'])}}">Kelas 9</a>
+                  @endif
                 </li>
-                {{-- <li class="nav-item justify-right">
-                  <span class="nav-link">Navbar</span>
-                </li> --}}
+                <li class="nav-item ml-auto">
+                  <a class="nav-link" aria-current="true" href="{{route('mtsn.hasilangket')}}">Admin</a>
+                </li>
               </ul>
+              
             </div>
             
             <div class="card-body">
@@ -57,15 +55,15 @@
                   <option selected>Pilih Namamu</option>
                   @if($pilihan == 'kelas7' || $pilihan == 'default')
                     @foreach ($kls7 as $a)
-                    <option value={{$a->id}}>{{$a->nama}} - {{$a->kelas}}</option>
+                    <option value={{$a->id}}>{{$a->nama}} {{$a->kelas}}</option>
                     @endforeach
                   @elseif($pilihan == 'kelas8')
                     @foreach ($kls8 as $a)
-                    <option value={{$a->id}}>{{$a->nama}} - {{$a->kelas}}</option>
+                    <option value={{$a->id}}>{{$a->nama}} {{$a->kelas}}</option>
                     @endforeach
                   @elseif($pilihan == 'kelas9')
                     @foreach ($kls9 as $a)
-                    <option value={{$a->id}}>{{$a->nama}} - {{$a->kelas}}</option>
+                    <option value={{$a->id}}>{{$a->nama}} {{$a->kelas}}</option>
                     @endforeach
                   @endif
                 </select>
@@ -82,7 +80,7 @@
             <div class="card-body text-dark">
               <p class="card-text font-weight-bold">{{$a->angket}}</p>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="jawaban_{{$a->id}}" id="flexRadioDefault1" checked value="Ya"> 
+                <input class="form-check-input" type="radio" name="jawaban_{{$a->id}}" id="flexRadioDefault1" value="Ya"> 
                 <label class="form-check-label" for="flexRadioDefault1">
                   Ya
                 </label>

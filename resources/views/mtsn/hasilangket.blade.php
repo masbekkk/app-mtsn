@@ -1,3 +1,4 @@
+
 @extends('form')
 
 @section('style')
@@ -7,7 +8,7 @@
 
 @section('content')
 <div class="section-header bg-white">
-   <h1><text>Angket</text></h1>
+   <h1><text>Data Hasil Angket</text></h1>
    <div class="section-header-breadcrumb transparent">
    <ol class="breadcrumb bg-white">
       <li class="breadcrumb-item"><a href="/"><text><i class="fas fa-igloo"></i>Beranda</text></a></li>
@@ -15,27 +16,23 @@
    </ol>
 </div>
 </div>
-<div class="card card-danger bg-light">
+<div class="card card-danger ">
 <div class="card-header">
-{{-- <a href="/" class="btn btn-info">Buka Presensi</a> --}}
-   <div class="ml-auto w-0">
-   <label class="switch">
-      <input type="checkbox" class="primary" id="darkSwitch">
-      <span class="slider round" data-checked="fas fa-moon"></span>
-   </label>
-   </div>
+<a href="{{route('mtsn.siswa.add')}}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-download"></i> Export Data</a>
 </div>
    <div class="card-body">
-      <div class="table-responsive table-light bg-light">
+      <div class="table-responsive">
          <table class="table table-striped" id="table-1">
-            <thead class="bg-light">
+            <thead class="">
                <tr>
                   <th class="text-center">
                      #
                   </th>
-                  <th>Pertanyaan</th>
-                  <th>Ya</th>
-                  <th>Tidak</th>
+                  <th>NISN</th>
+                  <th>Nama Siswa</th>
+                  <th>Kelas</th>
+                  <th>Prosentase</th>
+                  <th>Aksi</th>
                 </tr>
             </thead>
         <tbody>
@@ -45,24 +42,25 @@
                   {{ $loop->iteration}}
                </td>
                <td>
-                    {{$a->angket}}
-                </td>
-
-                <td>
-                {{-- @for($i=1; $i<=$jml; $i++) --}}
-                    <input type="radio" id="html" name="fav_language" value="Ya">
-                    <label for="html">Ya</label><br>
-                {{-- @endfor --}}
+                    {{$a->siswa->nisn}}
                 </td>
                 <td>
-                {{-- @for($i=1; $i<=$jml; $i++) --}}
-                    <input type="radio" id="html" name="fav_language" value="Tidak">
-                    <label for="html">Tidak</label><br>
-                {{-- @endfor --}}
+                  {{$a->siswa->nama}}
+                </td>
+                <td>
+                  {{$a->siswa->kelas}}
+                </td>
+                <td>
+                 {{$a->prosentase}}
+                </td>
+                <td class="d-flex justify-content-center">
+                    <a class="btn btn-info btn-sm text-white"
+                                href="{{ route('mtsn.detail-angket', ['id' => $a->angket_id]) }}"
+                                title="Detail"><i class="fas fa-info-circle"></i> Detail</a>
                 </td>
             </tr>
+
             @endforeach
-    
         </tbody>
         </table>
        </div>
@@ -81,4 +79,3 @@
 	})
 </script>
 @endsection
-

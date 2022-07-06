@@ -25,10 +25,11 @@ Route::namespace('App\Http\Controllers')->name('mtsn.')->middleware([])->prefix(
   Route::post('/delete-pelanggaran', [App\Http\Controllers\PelanggaranController::class, 'store'])->name('storepelanggaran');
   Route::get('/pelanggaran', [App\Http\Controllers\PelanggaranController::class, 'index'])->name('pelanggaran');
 
-  Route::get('/angket', [App\Http\Controllers\AngketController::class, 'index'])->name('angket');
-  Route::get('/angket-kelas7', [App\Http\Controllers\AngketController::class, 'kelas7'])->name('angket-kelas7');
-  Route::get('/angket-kelas8', [App\Http\Controllers\AngketController::class, 'kelas8'])->name('angket-kelas8');
-  Route::get('/angket-kelas9', [App\Http\Controllers\AngketController::class, 'kelas9'])->name('angket-kelas9');
+  Route::get('/angket', function(){
+    return redirect()->route('mtsn.angket', ['pilihan' => 'kelas7']);
+  })->name('angket1');
+  Route::get('/angket/{pilihan}', [App\Http\Controllers\AngketController::class, 'index'])->name('angket');
+ 
   Route::post('/angket', [App\Http\Controllers\AngketController::class, 'store'])->name('angket.store');
 
   Route::get('/siswa', [App\Http\Controllers\SiswaController::class, 'index'])->name('siswa');
@@ -37,11 +38,15 @@ Route::namespace('App\Http\Controllers')->name('mtsn.')->middleware([])->prefix(
   Route::get('/siswa/edit/{id}', [App\Http\Controllers\SiswaController::class, 'edit'])->name('siswa.edit');
   Route::put('/siswa/update/{id}', [App\Http\Controllers\SiswaController::class, 'update'])->name('siswa.update');
   Route::get('/siswa/delete/{id}', [App\Http\Controllers\SiswaController::class, 'delete'])->name('siswa.delete');
+
+  Route::get('/hasil-angket', [App\Http\Controllers\ProsentaseController::class, 'index'])->name('hasilangket');
+
+  Route::get('/detail-angket/{id}', [App\Http\Controllers\AngketController::class, 'detail'])->name('detail-angket');
   
 });
 
 Route::get('/', function(){
-  return redirect()->route('mtsn.angket');
+  return redirect()->route('mtsn.angket1');
 })->name('/');
 
 
